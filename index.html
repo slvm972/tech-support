@@ -3,1333 +3,829 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Slava Mostovoy — Portfolio (short) · AI-Assisted Problem Solving · Support · Testing</title>
-  <meta name="description" content="Practical use of AI tools, technical support, testing digital products. Portfolio of Slava Mostovoy, Petah Tikva, Israel." />
+  <title>Помощь с телефоном, планшетом и техникой — Петах-Тиква</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <meta name="description" content="Помощь пожилым с смартфоном, планшетом, компьютером и ТВ-приставкой в Петах-Тикве. Объясняю просто. WhatsApp и телефон." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=JetBrains+Mono:wght@500&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0c0c0e;
-      --bg-elevated: #141417;
-      --bg-card: #1a1a1f;
-      --border: #2a2a32;
-      --text: #e8e8ed;
-      --text-muted: #9898a6;
-      --accent: #6ee7b7;
-      --accent-dim: #34d399;
-      --accent-soft: rgba(110, 231, 183, 0.12);
-      --blue: #60a5fa;
-      --radius: 16px;
-      --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      --focus: 0 0 0 3px rgba(110, 231, 183, 0.45);
+      --bg: #eef2f6;
+      --bg-warm: #e4eaf1;
+      --bg-mint: #ddf0eb;
+      --bg-peach: #e8eef8;
+      --bg-lilac: #e6e4f4;
+      --ink: #121826;
+      --ink-soft: #3d4556;
+      --ink-faint: #6b7385;
+      --line: #cfd6e0;
+      --coral: #e07a4a;
+      --coral-deep: #c45f32;
+      --teal: #2a9d8f;
+      --teal-deep: #1f7a6f;
+      --gold: #d4a017;
+      --violet: #7c6aef;
+      --wa: #128c7e;
+      --wa-hover: #0e6e63;
+      --font: "DM Sans", system-ui, sans-serif;
+      --display: "Fraunces", Georgia, serif;
+      --display2: "Outfit", system-ui, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, monospace;
+      --edge: clamp(1.25rem, 4.5vw, 3rem);
+      --radius: 1.25rem;
+      --shadow: 0 12px 40px rgba(26, 21, 35, 0.08);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
 
     body {
       font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+      background:
+        radial-gradient(1100px 560px at 8% -8%, #d4e4f7 0%, transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, #d5efe8 0%, transparent 50%),
+        radial-gradient(700px 420px at 70% 100%, #dde0f5 0%, transparent 48%),
+        var(--bg);
+      color: var(--ink);
+      font-size: 1.0625rem;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
     }
 
     a { color: inherit; text-decoration: none; }
-
+    a:hover { color: var(--coral-deep); }
     a:focus-visible,
     button:focus-visible {
-      outline: none;
-      box-shadow: var(--focus);
-      border-radius: 4px;
+      outline: 2px solid var(--coral);
+      outline-offset: 3px;
     }
-    .btn:focus-visible,
-    .nav-cta:focus-visible,
-    .lang-btn:focus-visible {
-      border-radius: 999px;
-    }
-
-    .lang-switch {
-      display: flex;
-      gap: 3px;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 3px;
-      flex-wrap: wrap;
-    }
-    .lang-btn {
-      font-size: 0.72rem;
-      font-weight: 600;
-      padding: 5px 8px;
-      border-radius: 999px;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .lang-btn.active { background: var(--accent); color: #0c0c0e; }
-    .lang-btn:hover:not(.active) { color: var(--text); }
 
     [data-lang] { display: none !important; }
     [data-lang].active { display: block !important; }
-    span[data-lang].active { display: inline !important; }
-    a[data-lang].active { display: inline-flex !important; }
+    span[data-lang].active,
+    a[data-lang].active { display: inline !important; }
 
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(12, 12, 14, 0.9);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-    }
-    .nav-inner {
-      max-width: 1100px;
+    /* top bar */
+    .bar {
+      display: flex;
+      justify-content: flex-end;
+      max-width: 58rem;
       margin: 0 auto;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+      padding: 1.1rem var(--edge);
     }
-    .logo {
-      font-weight: 700;
-      font-size: 1.05rem;
-      letter-spacing: -0.02em;
-      white-space: nowrap;
-    }
-    .logo span { color: var(--accent); }
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--text); }
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .nav-cta {
-      background: var(--accent);
-      color: #0c0c0e !important;
-      padding: 8px 14px;
-      border-radius: 999px;
+    .bar-link {
+      font-family: var(--display2);
+      font-size: 0.8rem;
       font-weight: 600;
-      font-size: 0.85rem;
-      white-space: nowrap;
+      color: var(--ink-soft);
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.65);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(8px);
     }
-    .nav-cta:hover { background: var(--accent-dim); }
+    .bar-link:hover {
+      color: var(--coral-deep);
+      border-color: var(--coral);
+      background: #fff;
+    }
 
-    .hero {
-      padding: 130px 24px 72px;
-      max-width: 1100px;
+    /* hero */
+    .mast {
+      max-width: 58rem;
       margin: 0 auto;
-      text-align: center;
+      padding: clamp(1rem, 4vw, 2.5rem) var(--edge) clamp(2rem, 5vw, 3.25rem);
     }
-    .hero-badge {
+    .kicker {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 0.8rem;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
       font-weight: 500;
-      padding: 6px 14px;
-      border-radius: 999px;
-      margin-bottom: 24px;
-    }
-    .hero h1 {
-      font-size: clamp(2.1rem, 5vw, 3rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 10px;
-    }
-    .hero .role {
-      font-size: clamp(1.05rem, 2.4vw, 1.35rem);
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 18px;
-      letter-spacing: -0.01em;
-    }
-    .hero p {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      max-width: 580px;
-      margin: 0 auto 28px;
-      line-height: 1.65;
-    }
-    .hero-note {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      max-width: 520px;
-      margin: 0 auto 28px;
-      line-height: 1.55;
-      opacity: 0.95;
-    }
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 22px;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 0.925rem;
-      transition: all 0.2s;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-primary { background: var(--accent); color: #0c0c0e; }
-    .btn-primary:hover { background: var(--accent-dim); transform: translateY(-1px); }
-    .btn-ghost {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-ghost:hover {
-      border-color: var(--text-muted);
-      background: var(--bg-elevated);
-    }
-
-    section {
-      padding: 64px 24px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .section-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 10px;
+      color: var(--teal-deep);
+      background: var(--bg-mint);
+      border: 1px solid #b8d9d0;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1.35rem;
     }
-    .section-title {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
-    }
-    .section-desc {
-      color: var(--text-muted);
-      max-width: 580px;
-      margin-bottom: 36px;
-      font-size: 0.975rem;
-    }
-
-    .about-text {
-      color: var(--text-muted);
-      font-size: 1rem;
-      max-width: 720px;
-      line-height: 1.7;
-    }
-    .about-text p + p { margin-top: 12px; }
-
-    .how-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      counter-reset: step;
-    }
-    .how-step {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 18px;
-      position: relative;
-    }
-    .how-step::before {
-      counter-increment: step;
-      content: counter(step);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
+    .kicker::before {
+      content: "";
+      width: 0.45rem;
+      height: 0.45rem;
       border-radius: 50%;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 0.8rem;
+      background: var(--teal);
+      box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.25);
+    }
+    .mast h1 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(2.5rem, 7.5vw, 3.85rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      max-width: 15ch;
+      margin-bottom: 1.35rem;
+      background: linear-gradient(135deg, var(--ink) 40%, var(--coral-deep) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    @supports not (background-clip: text) {
+      .mast h1 { color: var(--ink); background: none; }
+    }
+    .lead {
+      font-size: 1.15rem;
+      color: var(--ink-soft);
+      max-width: 38em;
+      line-height: 1.75;
+      font-weight: 400;
+    }
+
+    /* fact cards */
+    .facts {
+      max-width: 58rem;
+      margin: 0 auto;
+      padding: 0 var(--edge) clamp(2.5rem, 6vw, 3.5rem);
+      display: grid;
+      gap: 1rem;
+    }
+    @media (min-width: 700px) {
+      .facts { grid-template-columns: repeat(3, 1fr); gap: 1.15rem; }
+    }
+    .fact {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.3rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .fact::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .fact:nth-child(1)::before { background: linear-gradient(90deg, var(--coral), #f0a878); }
+    .fact:nth-child(2)::before { background: linear-gradient(90deg, var(--teal), #7dccc0); }
+    .fact:nth-child(3)::before { background: linear-gradient(90deg, var(--violet), #b4a9f5); }
+    .fact strong {
+      display: block;
+      font-family: var(--display2);
+      font-size: 0.75rem;
       font-weight: 700;
-      margin-bottom: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 0.45rem;
     }
-    .how-step h3 {
+    .fact p {
       font-size: 0.95rem;
-      font-weight: 650;
-      margin-bottom: 6px;
-    }
-    .how-step p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
+      color: var(--ink-soft);
       line-height: 1.5;
     }
 
-    .case-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      max-width: 720px;
+    .shell {
+      max-width: 58rem;
+      margin: 0 auto;
+      padding: 0 var(--edge) clamp(3rem, 8vw, 5rem);
     }
-    .case-card h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 14px;
+
+    .block {
+      margin-bottom: clamp(2.5rem, 6vw, 3.75rem);
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(229, 217, 204, 0.8);
+      border-radius: calc(var(--radius) + 4px);
+      padding: clamp(1.5rem, 4vw, 2.25rem);
+      box-shadow: 0 4px 24px rgba(26, 21, 35, 0.04);
     }
-    .case-row {
-      margin-bottom: 12px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.55;
+    .block:nth-of-type(even) {
+      background: linear-gradient(160deg, rgba(255,255,255,0.75) 0%, #e3eaf5 120%);
     }
-    .case-row strong {
-      color: var(--text);
+    .block h2 {
+      font-family: var(--display);
       font-weight: 600;
-      display: block;
-      margin-bottom: 2px;
+      font-size: clamp(1.55rem, 3.4vw, 2rem);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: var(--ink);
     }
-    .case-source {
-      margin-top: 14px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
+    .block > p {
+      color: var(--ink-soft);
+      max-width: 40em;
+      margin-bottom: 1em;
     }
-    .case-source a { color: var(--accent); font-weight: 500; }
-    .case-source a:hover { color: var(--accent-dim); }
+    .block > p:last-child { margin-bottom: 0; }
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
-    .project-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: border-color 0.2s, transform 0.2s;
-      display: flex;
-      flex-direction: column;
-    }
-    .project-card:hover {
-      border-color: #3a3a45;
-      transform: translateY(-3px);
-    }
-    .project-visual {
-      height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      background: var(--bg-elevated);
-      overflow: hidden;
-    }
-    .project-visual img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      display: block;
-    }
-
-    .project-status {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      font-size: 0.68rem;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(6px);
-      color: var(--text-muted);
-      z-index: 1;
-    }
-    .status-demo { color: var(--blue); }
-    .status-live { color: var(--accent); }
-
-    .project-body {
-      padding: 20px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .project-tags {
+    .chips {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 10px;
+      gap: 0.55rem;
+      margin: 1.2rem 0 1.4rem;
     }
-    .tag {
-      font-size: 0.68rem;
+    .chips > span {
+      font-family: var(--display2);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      color: var(--ink);
+      border: 1px solid transparent;
+    }
+    .chips > span:nth-child(1) { background: #ffe4d6; border-color: #f5c4a8; }
+    .chips > span:nth-child(2) { background: #d8f3ec; border-color: #a8d9cd; }
+    .chips > span:nth-child(3) { background: #e8e4fc; border-color: #c5bdf5; }
+    .chips > span:nth-child(4) { background: #fef3c7; border-color: #f0d78c; }
+    .chips > span:nth-child(5) { background: #fce7f3; border-color: #f0b8d4; }
+    .chips > span:nth-child(6) { background: #e0f2fe; border-color: #a8d4ef; }
+
+    /* process spine */
+    .spine {
+      list-style: none;
+      margin: 1.5rem 0 0;
+      position: relative;
+    }
+    .spine::before {
+      content: "";
+      position: absolute;
+      top: 0.7rem;
+      bottom: 0.7rem;
+      inset-inline-start: 0.7rem;
+      width: 3px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, var(--coral), var(--teal), var(--violet));
+    }
+    .spine li {
+      position: relative;
+      padding-inline-start: 2.75rem;
+      padding-bottom: 1.85rem;
+    }
+    .spine li:last-child { padding-bottom: 0; }
+    .spine li::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: 0.25rem;
+      top: 0.25rem;
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--coral);
+      z-index: 1;
+      box-shadow: 0 0 0 4px rgba(224, 122, 74, 0.15);
+    }
+    .spine li:nth-child(2)::before {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 4px rgba(42, 157, 143, 0.15);
+    }
+    .spine li:nth-child(3)::before {
+      border-color: var(--violet);
+      background: var(--violet);
+      box-shadow: 0 0 0 4px rgba(124, 106, 239, 0.2);
+    }
+    .spine .step-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
       font-weight: 500;
-      padding: 3px 8px;
-      border-radius: 6px;
-      background: var(--bg-elevated);
-      color: var(--text-muted);
-      border: 1px solid var(--border);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--coral-deep);
+      margin-bottom: 0.35rem;
     }
-    .project-body h3 {
+    .spine li:nth-child(2) .step-label { color: var(--teal-deep); }
+    .spine li:nth-child(3) .step-label { color: #5c4fd4; }
+    .spine strong {
+      display: block;
+      font-family: var(--display2);
       font-size: 1.1rem;
       font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
     }
-    .project-meta {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 12px;
+    .spine p {
+      font-size: 0.975rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      max-width: 36em;
+    }
+
+    .skills {
+      list-style: none;
+      margin-top: 0.75rem;
+      display: grid;
+      gap: 0.75rem;
+    }
+    @media (min-width: 640px) {
+      .skills { grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+    }
+    .skills li {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      padding: 1rem 1.1rem 1rem 1.15rem;
+      color: var(--ink-soft);
+      font-size: 0.95rem;
       line-height: 1.55;
+      border-inline-start: 4px solid var(--coral);
+      box-shadow: 0 2px 12px rgba(26, 21, 35, 0.04);
     }
-    .project-meta strong {
-      color: var(--text);
-      font-weight: 600;
+    .skills li:nth-child(2) { border-inline-start-color: var(--teal); }
+    .skills li:nth-child(3) { border-inline-start-color: var(--violet); }
+    .skills li:nth-child(4) { border-inline-start-color: var(--gold); }
+
+    .closing-text {
+      font-family: var(--display);
+      font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+      line-height: 1.45;
+      color: var(--ink);
+      max-width: 30em;
+      font-weight: 500;
     }
-    .project-footer {
+
+    .contact {
+      margin-top: 1.75rem;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, #121826 0%, #1c2740 50%, #1a3d48 100%);
+      color: #f5f0ea;
+      box-shadow: var(--shadow);
+    }
+    .contact > p {
+      font-size: 0.975rem;
+      color: rgba(245, 240, 234, 0.85);
+      margin-bottom: 1.1rem;
+      max-width: 30em;
+    }
+    .actions {
       display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-top: auto;
-      padding-top: 12px;
       flex-wrap: wrap;
+      gap: 0.7rem;
     }
-    .project-link {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--accent);
+    .btn-wa,
+    .btn-phone {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-    }
-    .project-link:hover { color: var(--accent-dim); }
-    .project-link.secondary {
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-    .project-link.secondary:hover { color: var(--text); }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
-    .skill-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-    }
-    .skill-card h3 {
-      font-size: 0.95rem;
-      font-weight: 650;
-      margin-bottom: 8px;
-    }
-    .skill-card p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.55;
-    }
-
-    .extra-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-    .extra-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-      transition: border-color 0.2s;
-    }
-    .extra-card:hover { border-color: #3a3a45; }
-    .extra-thumb {
-      width: 72px;
-      height: 72px;
-      border-radius: 12px;
-      flex-shrink: 0;
-      overflow: hidden;
-      background: var(--bg-elevated);
-    }
-    .extra-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .extra-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
-    .extra-card p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-    .extra-link {
-      font-size: 0.85rem;
+      gap: 0.55rem;
+      font-family: var(--display2);
+      font-size: 0.925rem;
       font-weight: 600;
-      color: var(--accent);
-      display: inline-block;
-      margin-inline-end: 12px;
+      padding: 0.85rem 1.35rem;
+      border-radius: 999px;
+      transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
     }
-    .extra-link:hover { color: var(--accent-dim); }
+    .btn-wa {
+      background: #25d366;
+      color: #0a2e18 !important;
+      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+    }
+    .btn-wa:hover {
+      background: #1ebe57;
+      color: #0a2e18 !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(37, 211, 102, 0.4);
+    }
+    .btn-phone {
+      background: rgba(255,255,255,0.12);
+      color: #fff !important;
+      border: 1.5px solid rgba(255,255,255,0.35);
+    }
+    .btn-phone:hover {
+      background: rgba(255,255,255,0.22);
+      color: #fff !important;
+      transform: translateY(-2px);
+    }
+    .btn-wa svg,
+    .btn-phone svg {
+      width: 1.15rem;
+      height: 1.15rem;
+      flex-shrink: 0;
+    }
 
-    .contact-section {
-      text-align: center;
-      padding: 72px 24px;
-      border-top: 1px solid var(--border);
-    }
-    .contact-section h2 {
-      font-size: clamp(1.5rem, 3vw, 1.9rem);
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    .contact-section > p {
-      color: var(--text-muted);
-      margin-bottom: 28px;
-      max-width: 440px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .contact-links {
+    .foot {
+      max-width: 58rem;
+      margin: 0 auto;
+      padding: 1.5rem var(--edge) 2.75rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-    }
-    .contact-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 20px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      min-width: 200px;
-      text-align: start;
-    }
-    .contact-item strong {
-      display: block;
-      color: var(--text);
-      font-size: 0.8rem;
-      margin-bottom: 4px;
-      font-weight: 600;
-    }
-    .contact-item a {
-      color: var(--accent);
-      font-weight: 500;
-      word-break: break-all;
-    }
-    .contact-item a:hover { color: var(--accent-dim); }
-
-    footer {
-      padding: 28px 24px 36px;
-      max-width: 1100px;
-      margin: 0 auto;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      border-top: 1px solid var(--border);
-    }
-    .footer-top {
-      display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 20px;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--ink-faint);
     }
-    .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
-    .footer-links a:hover { color: var(--text); }
-    .footer-lang {
+    .foot a {
+      font-family: var(--display2);
+      font-weight: 600;
+      color: var(--ink-soft);
+    }
+    .foot a:hover { color: var(--coral-deep); }
+
+    .lang-switch {
       display: flex;
-      justify-content: center;
-      padding-top: 8px;
+      gap: 0.25rem;
+      background: #fff;
+      padding: 0.25rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      box-shadow: 0 2px 10px rgba(26, 21, 35, 0.05);
     }
+    .lang-btn {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 0.45rem 0.65rem;
+      border: none;
+      background: transparent;
+      color: var(--ink-faint);
+      cursor: pointer;
+      border-radius: 999px;
+    }
+    .lang-btn.active {
+      color: #fff;
+      background: linear-gradient(135deg, var(--coral), var(--coral-deep));
+    }
+    .lang-btn:hover:not(.active) { color: var(--ink); }
 
-    @media (max-width: 900px) {
-      .how-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .extra-grid { grid-template-columns: 1fr; }
-      .hero { padding: 110px 20px 56px; }
-      section { padding: 52px 20px; }
-      .how-grid { grid-template-columns: 1fr; }
-    }
     @media (max-width: 480px) {
-      .nav-cta { display: none; }
-      .contact-item { min-width: 100%; }
-      .project-footer { gap: 10px; }
-      .lang-btn { padding: 4px 7px; font-size: 0.7rem; }
+      body { font-size: 1rem; }
+      .mast h1 { max-width: none; }
+      .skills { grid-template-columns: 1fr; }
+      .block { padding: 1.25rem; }
     }
-
-    [dir="rtl"] .project-status { right: auto; left: 12px; }
   </style>
 </head>
 <body>
 
-  <nav aria-label="Main">
-    <div class="nav-inner">
-      <a href="#" class="logo" aria-label="Slava Mostovoy — home">Slava<span>.</span></a>
-      <ul class="nav-links">
-        <li>
-          <a href="#projects">
-            <span data-lang="ru" class="active">Проекты</span>
-            <span data-lang="en">Projects</span>
-            <span data-lang="he">פרויקטים</span>
-            <span data-lang="uk">Проєкти</span>
-          </a>
-        </li>
-        <li>
-          <a href="#skills">
-            <span data-lang="ru" class="active">Навыки</span>
-            <span data-lang="en">Skills</span>
-            <span data-lang="he">מיומנויות</span>
-            <span data-lang="uk">Навички</span>
-          </a>
-        </li>
-        <li>
-          <a href="#creative">
-            <span data-lang="ru" class="active">Творчество</span>
-            <span data-lang="en">Creative</span>
-            <span data-lang="he">יצירה</span>
-            <span data-lang="uk">Творчість</span>
-          </a>
-        </li>
-        <li>
-          <a href="#contact">
-            <span data-lang="ru" class="active">Контакты</span>
-            <span data-lang="en">Contact</span>
-            <span data-lang="he">יצירת קשר</span>
-            <span data-lang="uk">Контакти</span>
-          </a>
-        </li>
-      </ul>
-      <div class="nav-right">
-        <a href="#contact" class="nav-cta">
-          <span data-lang="ru" class="active">Связаться</span>
-          <span data-lang="en">Contact</span>
-          <span data-lang="he">צור קשר</span>
-          <span data-lang="uk">Звʼязатися</span>
-        </a>
-      </div>
-    </div>
+
+  <nav class="bar" aria-label="Portfolio">
+    <a class="bar-link" href="https://slvm972.github.io/Portfolio/">
+      <span data-lang="ru" class="active">← Портфолио</span>
+      <span data-lang="en">← Portfolio</span>
+      <span data-lang="he">← תיק עבודות</span>
+      <span data-lang="uk">← Портфоліо</span>
+    </a>
   </nav>
 
-  <!-- Short version: without How I Work + ResumeAI case study -->
-  <header class="hero">
-    <div class="hero-badge">
-      <span data-lang="ru" class="active">Открыт к предложениям о работе · Петах-Тиква, Израиль</span>
-      <span data-lang="en">Open to work · Petah Tikva, Israel</span>
-      <span data-lang="he">פתוח להזדמנויות עבודה · פתח תקווה</span>
-      <span data-lang="uk">Відкритий до пропозицій роботи · Петах-Тіква, Ізраїль</span>
-    </div>
-    <h1>Slava Mostovoy</h1>
-    <div class="role">AI-Assisted Problem Solving · Technical Support · Digital Testing</div>
-    <p>
-      <span data-lang="ru" class="active">
-        Исследую задачи, использую ИИ для создания цифровых решений, проверяю сценарии и разбираюсь в ошибках.
-        Ищу работу на стыке технической поддержки, ИИ-инструментов и тестирования.
-      </span>
-      <span data-lang="en">
-        I research tasks, use AI to build digital solutions, verify scenarios and work through issues.
-        Looking for roles at the intersection of technical support, AI tools and testing.
-      </span>
-      <span data-lang="he">
-        חוקר משימות, משתמש ב-AI לבניית פתרונות דיגיטליים, בודק תרחישים ומטפל בשגיאות.
-        מחפש עבודה במפגש בין תמיכה טכנית, כלי AI ובדיקות.
-      </span>
-      <span data-lang="uk">
-        Досліджую завдання, використовую ШІ для створення цифрових рішень, перевіряю сценарії та розбираюся з помилками.
-        Шукаю роботу на стику технічної підтримки, інструментів ШІ та тестування.
-      </span>
+  <header class="mast">
+    <p class="kicker">
+      <span data-lang="ru" class="active">Петах-Тиква · Помощь с техникой</span>
+      <span data-lang="en">Petah Tikva · Help with devices</span>
+      <span data-lang="he">פתח תקווה · עזרה עם מכשירים</span>
+      <span data-lang="uk">Петах-Тіква · Допомога з технікою</span>
     </p>
-    <p class="hero-note">
-      <span data-lang="ru" class="active">
-        Цифровые решения собираю с помощью ИИ: от постановки задачи до проверки сценариев и исправления ошибок. Проекты ниже — solo.
-      </span>
-      <span data-lang="en">
-        I assemble digital solutions with AI: from framing the task through scenario checks and fixing issues. Projects below are solo.
-      </span>
-      <span data-lang="he">
-        מרכיב פתרונות דיגיטליים בעזרת AI: מניסוח המשימה ועד בדיקת תרחישים ותיקון בעיות. הפרויקטים למטה — solo.
-      </span>
-      <span data-lang="uk">
-        Цифрові рішення збираю за допомогою ШІ: від постановки задачі до перевірки сценаріїв і виправлення помилок. Проєкти нижче — solo.
-      </span>
+    <h1>
+      <span data-lang="ru" class="active">Помогу разобраться с телефоном и другой техникой</span>
+      <span data-lang="en">I’ll help you with your phone and other devices</span>
+      <span data-lang="he">אעזור לכם עם הטלפון ועם מכשירים אחרים</span>
+      <span data-lang="uk">Допоможу розібратися з телефоном та іншою технікою</span>
+    </h1>
+    <p class="lead">
+      <span data-lang="ru" class="active">Телефон «не слушается», не открывается нужная программа, пропал звук на телевизоре или непонятно, куда нажимать? Я спокойно разберусь вместе с вами, объясню простыми словами и покажу, как сделать это самим — без спешки и сложных терминов.</span>
+      <span data-lang="en">Phone won’t cooperate, an app won’t open, the TV has no sound, or you’re not sure what to tap? I’ll calmly figure it out with you, explain in plain words, and show you how to do it yourself — without rushing and without complicated terms.</span>
+      <span data-lang="he">הטלפון «לא מציית», אפליקציה לא נפתחת, אין קול בטלוויזיה או לא ברור על מה ללחוץ? אבדוק את זה איתכם בסבלנות, אסביר במילים פשוטות ואראה איך לעשות זאת לבד — בלי לחץ ובלי מונחים מסובכים.</span>
+      <span data-lang="uk">Телефон «не слухається», не відкривається потрібна програма, зник звук на телевізорі або незрозуміло, куди натискати? Спокійно розберусь разом із вами, поясню простими словами і покажу, як зробити це самим — без поспіху і складних термінів.</span>
     </p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn btn-primary">
-        <span data-lang="ru" class="active">Проекты</span>
-        <span data-lang="en">Projects</span>
-        <span data-lang="he">פרויקטים</span>
-        <span data-lang="uk">Проєкти</span>
-        →
-      </a>
-      <a href="#contact" class="btn btn-ghost">
-        <span data-lang="ru" class="active">Контакты</span>
-        <span data-lang="en">Contact</span>
-        <span data-lang="he">יצירת קשר</span>
-        <span data-lang="uk">Контакти</span>
-      </a>
-    </div>
   </header>
 
-  <section id="about">
-    <div class="section-label">
-      <span data-lang="ru" class="active">О себе</span>
-      <span data-lang="en">About</span>
-      <span data-lang="he">עליי</span>
-      <span data-lang="uk">Про себе</span>
-    </div>
-    <h2 class="section-title">
-      <span data-lang="ru" class="active">Кратко</span>
-      <span data-lang="en">In brief</span>
-      <span data-lang="he">בקצרה</span>
-      <span data-lang="uk">Коротко</span>
-    </h2>
-    <div class="about-text">
-      <p data-lang="ru" class="active">
-        Практическое решение технических задач: исследование, ИИ-инструменты, проверка сценариев, поиск ошибок, улучшение цифровых решений.
-        Опора — техподдержка (ПК, сети, оборудование) и обучение работе с LLM. Музыка и видео — дополнительный навык, не основное направление.
-      </p>
-      <p data-lang="en">
-        Practical technical problem-solving: research, AI tools, scenario checks, finding issues, improving digital solutions.
-        Grounded in technical support (PCs, networks, equipment) and training people to use LLMs. Music and video are an extra skill, not the main focus.
-      </p>
-      <p data-lang="he">
-        פתרון מעשי של משימות טכניות: מחקר, כלי AI, בדיקת תרחישים, איתור שגיאות ושיפור פתרונות דיגיטליים.
-        מבוסס על תמיכה טכנית (מחשבים, רשתות, ציוד) והדרכה ב-LLM. מוזיקה ווידאו — מיומנות נוספת, לא הכיוון המרכזי.
-      </p>
-      <p data-lang="uk">
-        Практичне розв’язання технічних задач: дослідження, інструменти ШІ, перевірка сценаріїв, пошук помилок, покращення цифрових рішень.
-        Опора — техпідтримка (ПК, мережі, обладнання) і навчання роботі з LLM. Музика та відео — додаткова навичка, не основний напрям.
+  <div class="facts" role="group">
+    <div class="fact">
+      <strong>
+        <span data-lang="ru" class="active">Где</span>
+        <span data-lang="en">Where</span>
+        <span data-lang="he">איפה</span>
+        <span data-lang="uk">Де</span>
+      </strong>
+      <p>
+        <span data-lang="ru" class="active">Петах-Тиква — в том числе жилые комплексы «микбацей диюр»</span>
+        <span data-lang="en">Petah Tikva — including “mikbatsei diyur” housing complexes</span>
+        <span data-lang="he">פתח תקווה — כולל מקבצי דיור</span>
+        <span data-lang="uk">Петах-Тіква — зокрема житлові комплекси «мікбацей діюр»</span>
       </p>
     </div>
-  </section>
-
-
-
-  <section id="projects">
-    <div class="section-label">
-      <span data-lang="ru" class="active">Проекты</span>
-      <span data-lang="en">Projects</span>
-      <span data-lang="he">פרויקטים</span>
-      <span data-lang="uk">Проєкти</span>
+    <div class="fact">
+      <strong>
+        <span data-lang="ru" class="active">Для кого</span>
+        <span data-lang="en">For whom</span>
+        <span data-lang="he">עבור מי</span>
+        <span data-lang="uk">Для кого</span>
+      </strong>
+      <p>
+        <span data-lang="ru" class="active">В первую очередь для русскоязычных пожилых людей, которым нужна спокойная помощь с техникой</span>
+        <span data-lang="en">Especially for Russian-speaking older adults who need calm help with technology</span>
+        <span data-lang="he">בעיקר לקשישים דוברי רוסית שזקוקים לעזרה רגועה עם הטכנולוגיה</span>
+        <span data-lang="uk">Насамперед для російськомовних літніх людей, яким потрібна спокійна допомога з технікою</span>
+      </p>
     </div>
-    <h2 class="section-title">
-      <span data-lang="ru" class="active">Цифровые проекты</span>
-      <span data-lang="en">Digital projects</span>
-      <span data-lang="he">פרויקטים דיגיטליים</span>
-      <span data-lang="uk">Цифрові проєкти</span>
-    </h2>
-    <p class="section-desc">
-      <span data-lang="ru" class="active">Самостоятельные демо и прототипы: практические цифровые решения и моя роль в их создании.</span>
-      <span data-lang="en">Independent demos and prototypes showcasing practical digital solutions.</span>
-      <span data-lang="he">דמואים ופרוטוטיפים עצמאיים שמציגים פתרונות דיגיטליים מעשיים.</span>
-      <span data-lang="uk">Самостійні демо та прототипи: практичні цифрові рішення і моя роль у їх створенні.</span>
-    </p>
-
-    <div class="projects-grid">
-
-      <article class="project-card">
-        <div class="project-visual resume">
-          <img src="screenshots/resumeai.png" alt="ResumeAI — resume analysis demo" loading="lazy" />
-          <span class="project-status status-live">
-            <span data-lang="ru" class="active">Живое демо</span>
-            <span data-lang="en">Live demo</span>
-            <span data-lang="he">דמו חי</span>
-            <span data-lang="uk">Живе демо</span>
-          </span>
-        </div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">LLM</span>
-            <span class="tag">AI</span>
-            <span class="tag">Resume</span>
-            <span class="tag">Multilingual</span>
-          </div>
-          <h3>ResumeAI</h3>
-          <div class="project-meta">
-            <span data-lang="ru" class="active">
-              <strong>Задача:</strong> многоязычный анализ резюме через LLM, рекомендации и выдача улучшенной версии документа.<br>
-              <strong>Работает:</strong> загрузка файла, разбор структуры и формулировок, рекомендации, скачивание результата.<br>
-              <strong>Мой вклад:</strong> сценарии анализа, промпты, проверка ответов модели и согласованности шагов (в т.ч. формирование DOCX).
-            </span>
-            <span data-lang="en">
-              <strong>Problem:</strong> multilingual resume analysis via LLM, suggestions, and an improved document download.<br>
-              <strong>Works:</strong> file upload, structure and wording review, recommendations, result download.<br>
-              <strong>My part:</strong> analysis flows, prompts, checking model replies and step consistency (including DOCX output).
-            </span>
-            <span data-lang="he">
-              <strong>משימה:</strong> ניתוח רב-לשוני של קורות חיים ב-LLM, המלצות והורדת גרסה משופרת.<br>
-              <strong>עובד:</strong> העלאת קובץ, בדיקת מבנה וניסוח, המלצות, הורדת תוצאה.<br>
-              <strong>התרומה שלי:</strong> תרחישי ניתוח, פרומפטים, בדיקת תשובות המודל ועקביות השלבים (כולל פלט DOCX).
-            </span>
-            <span data-lang="uk">
-              <strong>Задача:</strong> багатомовний аналіз резюме через LLM, рекомендації та видача покращеної версії документа.<br>
-              <strong>Працює:</strong> завантаження файлу, розбір структури й формулювань, рекомендації, завантаження результату.<br>
-              <strong>Мій внесок:</strong> сценарії аналізу, промпти, перевірка відповідей моделі та узгодженості кроків (зокрема формування DOCX).
-            </span>
-</div>
-          <div class="project-footer">
-            <a href="https://resumeai-2-uaul.onrender.com/" target="_blank" rel="noopener noreferrer" class="project-link"><span data-lang="ru" class="active">Демо →</span><span data-lang="en">Demo →</span><span data-lang="he">דמו →</span><span data-lang="uk">Демо →</span></a>
-            <a href="https://github.com/slvm972/resumeai" target="_blank" rel="noopener noreferrer" class="project-link secondary">GitHub</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <div class="project-visual price">
-          <img src="screenshots/pricetracker.png" alt="Price Tracker — Israeli retail price comparison" loading="lazy" />
-          <span class="project-status status-live">
-            <span data-lang="ru" class="active">Живое демо</span>
-            <span data-lang="en">Live demo</span>
-            <span data-lang="he">דמו חי</span>
-            <span data-lang="uk">Живе демо</span>
-          </span>
-        </div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">Israel</span>
-            <span class="tag">Price compare</span>
-            <span class="tag">RU / HE</span>
-          </div>
-          <h3>Price Tracker</h3>
-          <div class="project-meta">
-            <span data-lang="ru" class="active">
-              <strong>Задача:</strong> сравнение цен в израильских торговых сетях и сбор покупательской корзины.<br>
-              <strong>Работает:</strong> выбор сетей, каталог, сравнение, корзина; интерфейс на русском и иврите.<br>
-              <strong>Мой вклад:</strong> исследование источников данных, логика сравнения, проверка пользовательских сценариев RU/HE.
-            </span>
-            <span data-lang="en">
-              <strong>Problem:</strong> compare prices across Israeli retail chains and build a shopping basket.<br>
-              <strong>Works:</strong> chain selection, catalog, comparison, basket; Russian and Hebrew UI.<br>
-              <strong>My part:</strong> researching data sources, comparison logic, checking RU/HE user flows.
-            </span>
-            <span data-lang="he">
-              <strong>משימה:</strong> השוואת מחירים ברשתות קמעונאיות בישראל ובניית סל קניות.<br>
-              <strong>עובד:</strong> בחירת רשתות, קטלוג, השוואה, סל; ממשק ברוסית ובעברית.<br>
-              <strong>התרומה שלי:</strong> מחקר מקורות נתונים, לוגיקת השוואה, בדיקת תרחישי משתמש RU/HE.
-            </span>
-            <span data-lang="uk">
-              <strong>Задача:</strong> порівняння цін у ізраїльських торгових мережах і формування споживчого кошика.<br>
-              <strong>Працює:</strong> вибір мереж, каталог, порівняння, кошик; інтерфейс російською та івритом.<br>
-              <strong>Мій внесок:</strong> дослідження джерел даних, логіка порівняння, перевірка користувацьких сценаріїв RU/HE.
-            </span>
-</div>
-          <div class="project-footer">
-            <a href="https://slvm972.github.io/pricetracker-interface-found/price_viewer.html" target="_blank" rel="noopener noreferrer" class="project-link"><span data-lang="ru" class="active">Демо →</span><span data-lang="en">Demo →</span><span data-lang="he">דמו →</span><span data-lang="uk">Демо →</span></a>
-            <a href="https://github.com/slvm972/pricetracker-interface-found" target="_blank" rel="noopener noreferrer" class="project-link secondary">Frontend</a>
-            <a href="https://github.com/slvm972/price-tracker" target="_blank" rel="noopener noreferrer" class="project-link secondary">Backend</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <div class="project-visual prompts">
-          <img src="screenshots/prompt-vault.png" alt="AI Prompt Vault — prompt catalog landing" loading="lazy" />
-          <span class="project-status status-live">
-            <span data-lang="ru" class="active">Живое демо</span>
-            <span data-lang="en">Live demo</span>
-            <span data-lang="he">דמו חי</span>
-            <span data-lang="uk">Живе демо</span>
-          </span>
-        </div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">AI</span>
-            <span class="tag">Prompts</span>
-            <span class="tag">EN only</span>
-          </div>
-          <h3>AI Prompt Vault</h3>
-          <div class="project-meta">
-            <span data-lang="ru" class="active">
-              <strong>Задача:</strong> структурированный каталог промптов для работы с языковыми моделями (ChatGPT, Claude и др.).<br>
-              <strong>Работает:</strong> лендинг, навигация по каталогу, доступ к коллекции (интерфейс на английском).<br>
-              <strong>Мой вклад:</strong> отбор и формулирование промптов, структура каталога, проверка удобства просмотра.
-            </span>
-            <span data-lang="en">
-              <strong>Problem:</strong> a structured catalog of prompts for language models (ChatGPT, Claude, and others).<br>
-              <strong>Works:</strong> landing page, catalog navigation, access to the collection (English UI).<br>
-              <strong>My part:</strong> selecting and writing prompts, catalog structure, checking browsing usability.
-            </span>
-            <span data-lang="he">
-              <strong>משימה:</strong> קטלוג מובנה של פרומפטים לעבודה עם מודלי שפה (ChatGPT, Claude ועוד).<br>
-              <strong>עובד:</strong> דף נחיתה, ניווט בקטלוג, גישה לאוסף (ממשק באנגלית).<br>
-              <strong>התרומה שלי:</strong> בחירה וניסוח פרומפטים, מבנה הקטלוג, בדיקת נוחות הגלישה.
-            </span>
-            <span data-lang="uk">
-              <strong>Задача:</strong> структурований каталог промптів для роботи з мовними моделями (ChatGPT, Claude тощо).<br>
-              <strong>Працює:</strong> лендинг, навігація каталогом, доступ до колекції (інтерфейс англійською).<br>
-              <strong>Мій внесок:</strong> відбір і формулювання промптів, структура каталогу, перевірка зручності перегляду.
-            </span>
-</div>
-          <div class="project-footer">
-            <a href="https://ai-prompt-vault-eight.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link"><span data-lang="ru" class="active">Демо →</span><span data-lang="en">Demo →</span><span data-lang="he">דמו →</span><span data-lang="uk">Демо →</span></a>
-            <a href="https://github.com/slvm972/ai-prompt-vault" target="_blank" rel="noopener noreferrer" class="project-link secondary">GitHub</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <div class="project-visual tree">
-          <img src="screenshots/family-tree.png" alt="Family Tree Demo — interactive genealogy template" loading="lazy" />
-          <span class="project-status status-demo">
-            <span data-lang="ru" class="active">Демо-шаблон</span>
-            <span data-lang="en">Demo template</span>
-            <span data-lang="he">תבנית דמו</span>
-            <span data-lang="uk">Демо-шаблон</span>
-          </span>
-        </div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">Interactive</span>
-            <span class="tag">Genealogy</span>
-            <span class="tag">3 languages</span>
-          </div>
-          <h3>Family Tree Demo</h3>
-          <div class="project-meta">
-            <span data-lang="ru" class="active">
-              <strong>Задача:</strong> интерактивный многоязычный демо-шаблон генеалогического дерева (не готовый коммерческий сервис).<br>
-              <strong>Работает:</strong> лендинг шаблона, интерфейс RU/EN/HE, базовые сценарии просмотра дерева.<br>
-              <strong>Мой вклад:</strong> требования к демо, проверка многоязычного UI и сценариев навигации.
-            </span>
-            <span data-lang="en">
-              <strong>Problem:</strong> interactive multilingual demo template for a family tree (not a finished commercial service).<br>
-              <strong>Works:</strong> template landing, RU/EN/HE UI, basic tree-viewing flows.<br>
-              <strong>My part:</strong> demo requirements, checking multilingual UI and navigation scenarios.
-            </span>
-            <span data-lang="he">
-              <strong>משימה:</strong> תבנית דמו אינטראקטיבית ורב-לשונית לעץ משפחה (לא שירות מסחרי מוכן).<br>
-              <strong>עובד:</strong> דף נחיתה לתבנית, ממשק RU/EN/HE, תרחישי צפייה בסיסיים בעץ.<br>
-              <strong>התרומה שלי:</strong> דרישות לדמו, בדיקת ממשק רב-לשוני ותרחישי ניווט.
-            </span>
-            <span data-lang="uk">
-              <strong>Задача:</strong> інтерактивний багатомовний демо-шаблон генеалогічного дерева (не готовий комерційний сервіс).<br>
-              <strong>Працює:</strong> лендинг шаблону, інтерфейс RU/EN/HE, базові сценарії перегляду дерева.<br>
-              <strong>Мій внесок:</strong> вимоги до демо, перевірка багатомовного UI та сценаріїв навігації.
-            </span>
-</div>
-          <div class="project-footer">
-            <a href="https://family-tree-demo.pages.dev/" target="_blank" rel="noopener noreferrer" class="project-link"><span data-lang="ru" class="active">Демо →</span><span data-lang="en">Demo →</span><span data-lang="he">דמו →</span><span data-lang="uk">Демо →</span></a>
-            <a href="https://github.com/slvm972/family-tree-template" target="_blank" rel="noopener noreferrer" class="project-link secondary">GitHub</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <div class="project-visual site">
-          <img src="screenshots/creative-site.png" alt="mostovoy.neocities.org — multilingual poetry, music, video" loading="lazy" />
-          <span class="project-status status-live">
-            <span data-lang="ru" class="active">Живой сайт</span>
-            <span data-lang="en">Live site</span>
-            <span data-lang="he">אתר חי</span>
-            <span data-lang="uk">Живий сайт</span>
-          </span>
-        </div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">Multilingual</span>
-            <span class="tag">Multimedia</span>
-            <span class="tag">4 languages</span>
-            <span class="tag">Solo</span>
-          </div>
-          <h3>mostovoy.neocities.org</h3>
-          <div class="project-meta">
-            <span data-lang="ru" class="active">
-              <strong>Задача:</strong> многоязычный цифровой проект: поэзия, музыка и видео с навигацией, поиском и фильтрацией контента.<br>
-              <strong>Работает:</strong> 4 языка UI (RU/UK/EN/HE), коллекции стихов и переходы к переводам, разделы треков и клипов.<br>
-              <strong>Мой вклад:</strong> структура продукта, организация контента, проверка сценариев; сайт и редактор контента — в репозиториях GitHub.
-            </span>
-            <span data-lang="en">
-              <strong>Problem:</strong> a multilingual digital project: poetry, music and video with navigation, search and content filters.<br>
-              <strong>Works:</strong> 4 UI languages (RU/UK/EN/HE), poem collections and translation links, track and clip sections.<br>
-              <strong>My part:</strong> product structure, content organization, scenario checks; site and content editor in GitHub repos.
-            </span>
-            <span data-lang="he">
-              <strong>משימה:</strong> פרויקט דיגיטלי רב-לשוני: שירה, מוזיקה ווידאו עם ניווט, חיפוש וסינון תוכן.<br>
-              <strong>עובד:</strong> 4 שפות ממשק (RU/UK/EN/HE), אוספי שירים ומעבר לתרגומים, מדורי רצועות וקליפים.<br>
-              <strong>התרומה שלי:</strong> מבנה המוצר, ארגון תוכן, בדיקת תרחישים; האתר ועורך התוכן בריפוזיטורי GitHub.
-            </span>
-            <span data-lang="uk">
-              <strong>Задача:</strong> багатомовний цифровий проєкт: поезія, музика та відео з навігацією, пошуком і фільтрацією контенту.<br>
-              <strong>Працює:</strong> 4 мови UI (RU/UK/EN/HE), колекції віршів і переходи до перекладів, розділи треків і кліпів.<br>
-              <strong>Мій внесок:</strong> структура продукту, організація контенту, перевірка сценаріїв; сайт і редактор контенту — у репозиторіях GitHub.
-            </span>
-</div>
-          <div class="project-footer">
-            <a href="https://mostovoy.neocities.org/" target="_blank" rel="noopener noreferrer" class="project-link"><span data-lang="ru" class="active">Сайт →</span><span data-lang="en">Site →</span><span data-lang="he">אתר →</span><span data-lang="uk">Сайт →</span></a>
-            <a href="https://github.com/slvm972/neocities_mostovoy-site" target="_blank" rel="noopener noreferrer" class="project-link secondary">GitHub (site)</a>
-            <a href="https://github.com/slvm972/neocities-content-editor" target="_blank" rel="noopener noreferrer" class="project-link secondary">GitHub (editor)</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card">
-        <div class="project-visual support" style="background: linear-gradient(145deg, #141417 0%, #1a1a1f 50%, #0f1f1a 100%);">
-          <div style="text-align:center;padding:20px;">
-            <div style="font-size:2.2rem;line-height:1;margin-bottom:8px;opacity:0.9;">⚙</div>
-            <div style="font-size:0.78rem;font-weight:600;color:#6ee7b7;letter-spacing:0.02em;">Support · Training</div>
-          </div>
-          <span class="project-status status-demo">
-            <span data-lang="ru" class="active">Опыт</span>
-            <span data-lang="en">Experience</span>
-            <span data-lang="he">ניסיון</span>
-            <span data-lang="uk">Досвід</span>
-          </span>
-        </div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">Support</span>
-            <span class="tag">User training</span>
-            <span class="tag">Petah Tikva</span>
-            <span class="tag">Field</span>
-          </div>
-          <h3>
-            <span data-lang="ru" class="active">Техническая помощь и обучение</span>
-            <span data-lang="en">Technical support &amp; training</span>
-            <span data-lang="he">תמיכה טכנית והדרכה</span>
-            <span data-lang="uk">Технічна допомога та навчання</span>
-          </h3>
-          <div class="project-meta">
-            <span data-lang="ru" class="active">
-              <strong>Задача:</strong> практическая помощь русскоязычным пожилым людям в жилых комплексах (микбацей диюр) в Петах-Тикве — смартфоны, планшеты, компьютеры, ТВ-приставки, смарт-часы и др.<br>
-              <strong>Работает:</strong> диагностика типичных проблем, объяснение простым языком, обучение самостоятельной работе с техникой.<br>
-              <strong>Мой вклад:</strong> поддержка пользователей на месте, адаптация объяснений под уровень человека, акцент на самостоятельность.
-            </span>
-            <span data-lang="en">
-              <strong>Problem:</strong> practical help for Russian-speaking elderly people in housing complexes (mikbatsei diyur) in Petah Tikva — smartphones, tablets, computers, TV boxes, smartwatches, etc.<br>
-              <strong>Works:</strong> diagnosing typical issues, plain-language explanations, training for independent use of technology.<br>
-              <strong>My part:</strong> on-site user support, adapting explanations to the person, focus on independence.
-            </span>
-            <span data-lang="he">
-              <strong>משימה:</strong> סיוע מעשי לקשישים דוברי רוסית במקבצי דיור בפתח תקווה — סמארטפונים, טאבלטים, מחשבים, ממירים, שעונים חכמים ועוד.<br>
-              <strong>עובד:</strong> אבחון בעיות טיפוסיות, הסבר בשפה פשוטה, הדרכה לשימוש עצמאי בטכנולוגיה.<br>
-              <strong>התרומה שלי:</strong> תמיכה למשתמשים במקום, התאמת הסברים לרמת האדם, דגש על עצמאות.
-            </span>
-            <span data-lang="uk">
-              <strong>Задача:</strong> практична допомога російськомовним літнім людям у житлових комплексах (мікбацей діюр) у Петах-Тікві — смартфони, планшети, комп’ютери, ТВ-приставки, смарт-годинники тощо.<br>
-              <strong>Працює:</strong> діагностика типових проблем, пояснення простою мовою, навчання самостійній роботі з технікою.<br>
-              <strong>Мій внесок:</strong> підтримка користувачів на місці, адаптація пояснень під рівень людини, акцент на самостійність.
-            </span>
-          </div>
-          <div class="project-footer">
-            <a href="tech-support.html" class="project-link"><span data-lang="ru" class="active">Подробнее →</span><span data-lang="en">Details →</span><span data-lang="he">פרטים →</span><span data-lang="uk">Детальніше →</span></a>
-          </div>
-        </div>
-      </article>
-
-
-    </div>
-  </section>
-
-  <section id="skills">
-    <div class="section-label">
-      <span data-lang="ru" class="active">Компетенции</span>
-      <span data-lang="en">Competencies</span>
-      <span data-lang="he">מיומנויות</span>
-      <span data-lang="uk">Компетенції</span>
-    </div>
-    <h2 class="section-title">
-      <span data-lang="ru" class="active">Практические навыки</span>
-      <span data-lang="en">Practical skills</span>
-      <span data-lang="he">מיומנויות מעשיות</span>
-      <span data-lang="uk">Практичні навички</span>
-    </h2>
-    <p class="section-desc">
-      <span data-lang="ru" class="active">ИИ-инструменты, поддержка, тестирование, исследование, документация; мультимедиа — отдельно.</span>
-      <span data-lang="en">AI tools, support, testing, research, documentation; multimedia listed separately.</span>
-      <span data-lang="he">כלי AI, תמיכה, בדיקות, מחקר, תיעוד; מולטימדיה בנפרד.</span>
-      <span data-lang="uk">Інструменти ШІ, підтримка, тестування, дослідження, документація; мультимедіа — окремо.</span>
-    </p>
-
-    <div class="skills-grid">
-      <div class="skill-card">
-        <h3>AI tools</h3>
-        <p>
-          <span data-lang="ru" class="active">LLM и ИИ-инструменты: постановка задач, сценарии, промпты, проверка ответов, сборка и доработка демо; обучение других работе с LLM.</span>
-          <span data-lang="en">LLMs and AI tools: framing tasks, flows, prompts, validating replies, assembling and refining demos; training others to use LLMs.</span>
-          <span data-lang="he">LLM וכלי AI: ניסוח משימות, תרחישים, פרומפטים, בדיקת תשובות, הרכבה ושיפור דמואים; הדרכת אחרים בעבודה עם LLM.</span>
-          <span data-lang="uk">LLM та інструменти ШІ: постановка задач, сценарії, промпти, перевірка відповідей, збірка й доопрацювання демо; навчання інших роботі з LLM.</span>
-        </p>
-      </div>
-      <div class="skill-card">
-        <h3>Technical support</h3>
-        <p>
-          <span data-lang="ru" class="active">Поддержка компьютеров, сетей и электроники. Установка и настройка ПО и оборудования. Разбор проблем пользователей и систем.</span>
-          <span data-lang="en">Support for computers, networks and electronics. Installing and configuring software and hardware. Investigating user and system issues.</span>
-          <span data-lang="he">תמיכה במחשבים, רשתות ואלקטרוניקה. התקנה והגדרת תוכנה וחומרה. בדיקת בעיות משתמשים ומערכות.</span>
-          <span data-lang="uk">Підтримка компʼютерів, мереж і електроніки. Встановлення та налаштування ПЗ і обладнання. Розбір проблем користувачів і систем.</span>
-        </p>
-      </div>
-      <div class="skill-card">
-        <h3>Testing &amp; troubleshooting</h3>
-        <p>
-          <span data-lang="ru" class="active">Проверка сценариев, поиск ошибок, воспроизведение проблем, фиксация результатов и предложений по исправлению.</span>
-          <span data-lang="en">Scenario checks, finding bugs, reproducing issues, recording results and fix suggestions.</span>
-          <span data-lang="he">בדיקת תרחישים, איתור באגים, שחזור בעיות, תיעוד תוצאות והצעות לתיקון.</span>
-          <span data-lang="uk">Перевірка сценаріїв, пошук помилок, відтворення проблем, фіксація результатів і пропозицій щодо виправлення.</span>
-        </p>
-      </div>
-      <div class="skill-card">
-        <h3>Research</h3>
-        <p>
-          <span data-lang="ru" class="active">Самостоятельный сбор информации, сравнение подходов, проверка источников, формулирование выводов.</span>
-          <span data-lang="en">Independent information gathering, comparing approaches, verifying sources, drawing conclusions.</span>
-          <span data-lang="he">איסוף מידע עצמאי, השוואת גישות, אימות מקורות, ניסוח מסקנות.</span>
-          <span data-lang="uk">Самостійний збір інформації, порівняння підходів, перевірка джерел, формулювання висновків.</span>
-        </p>
-      </div>
-      <div class="skill-card">
-        <h3>Documentation</h3>
-        <p>
-          <span data-lang="ru" class="active">Краткое описание шагов, решений, найденных проблем и инструкций.</span>
-          <span data-lang="en">Clear, concise description of steps, solutions, found issues and instructions.</span>
-          <span data-lang="he">תיאור קצר וברור של שלבים, פתרונות, בעיות שנמצאו והוראות.</span>
-          <span data-lang="uk">Короткий опис кроків, рішень, знайдених проблем та інструкцій.</span>
-        </p>
-      </div>
-      <div class="skill-card">
-        <h3>Music production</h3>
-        <p>
-          <span data-lang="ru" class="active">Работа в FL Studio; обработка и финализация звука (iZotope Ozone); создание инструментальных композиций.</span>
-          <span data-lang="en">Work in FL Studio; sound processing and mastering with iZotope Ozone; creating instrumental tracks.</span>
-          <span data-lang="he">עבודה ב-FL Studio; עיבוד ופיינליזציה של סאונד (iZotope Ozone); יצירת יצירות אינסטרומנטליות.</span>
-          <span data-lang="uk">Робота в FL Studio; обробка та фіналізація звуку (iZotope Ozone); створення інструментальних композицій.</span>
-        </p>
-      </div>
-      <div class="skill-card">
-        <h3>Video editing</h3>
-        <p>
-          <span data-lang="ru" class="active">Монтаж и сборка видео; работа со звуком и музыкальным сопровождением в клипах к собственной музыке.</span>
-          <span data-lang="en">Video assembly and editing; sound and music bed work in clips for my own tracks.</span>
-          <span data-lang="he">עריכה והרכבת וידאו; עבודה עם סאונד וליווי מוזיקלי בקליפים למוזיקה שלי.</span>
-          <span data-lang="uk">Монтаж і збірка відео; робота зі звуком і музичним супроводом у кліпах до власної музики.</span>
-        </p>
-      </div>
-      <div class="skill-card">
-        <h3>AI multimedia</h3>
-        <p>
-          <span data-lang="ru" class="active">Музыкально-визуальные проекты с помощью ИИ: видео на основе стихов и авторской музыки (в т.ч. Shorts).</span>
-          <span data-lang="en">AI-assisted music–visual projects: videos based on poems and original music (including Shorts).</span>
-          <span data-lang="he">פרויקטים מוזיקליים-חזותיים בעזרת AI: וידאו על בסיס שירים ומוזיקה מקורית (כולל Shorts).</span>
-          <span data-lang="uk">Музично-візуальні проєкти за допомогою ШІ: відео на основі віршів і авторської музики (зокрема Shorts).</span>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section id="creative">
-    <div class="section-label">
-      <span data-lang="ru" class="active">Творчество</span>
-      <span data-lang="en">Creative</span>
-      <span data-lang="he">יצירה</span>
-      <span data-lang="uk">Творчість</span>
-    </div>
-    <h2 class="section-title">
-      <span data-lang="ru" class="active">Музыка и видео</span>
-      <span data-lang="en">Music &amp; video</span>
-      <span data-lang="he">מוזיקה ווידאו</span>
-      <span data-lang="uk">Музика та відео</span>
-    </h2>
-    <p class="section-desc">
-      <span data-lang="ru" class="active">Собственная музыка и видеоклипы — дополнительный контекст к цифровым проектам.</span>
-      <span data-lang="en">Original music and video clips — extra context alongside the digital projects.</span>
-      <span data-lang="he">מוזיקה וקליפים מקוריים — הקשר נוסף לצד הפרויקטים הדיגיטליים.</span>
-      <span data-lang="uk">Власна музика та відеокліпи — додатковий контекст до цифрових проєктів.</span>
-    </p>
-
-    <div class="extra-grid">
-
-      <div class="extra-card">
-        <div class="extra-thumb">
-          <img src="screenshots/soundcloud.png" alt="SoundCloud — sm studio works" loading="lazy" />
-        </div>
-        <div>
-          <h3>
-            <span data-lang="ru" class="active">Музыкальный альбом</span>
-            <span data-lang="en">Music album</span>
-            <span data-lang="he">אלבום מוזיקה</span>
-            <span data-lang="uk">Музичний альбом</span>
-          </h3>
-          <p>
-            <span data-lang="ru" class="active">sm studio works — электронная музыка. Альбом «something about me» и треки на SoundCloud.</span>
-            <span data-lang="en">sm studio works — electronic music. Album “something about me” and tracks on SoundCloud.</span>
-            <span data-lang="he">sm studio works — מוזיקה אלקטרונית. האלבום “something about me” ורצועות ב-SoundCloud.</span>
-            <span data-lang="uk">sm studio works — електронна музика. Альбом «something about me» і треки на SoundCloud.</span>
-          </p>
-          <a href="https://soundcloud.com/slava-mostovoy/albums" target="_blank" rel="noopener noreferrer" class="extra-link">SoundCloud →</a>
-        </div>
-      </div>
-
-      <div class="extra-card">
-        <div class="extra-thumb">
-          <img src="screenshots/youtube.png" alt="YouTube — MSL Spectrum" loading="lazy" />
-        </div>
-        <div>
-          <h3>
-            <span data-lang="ru" class="active">Видео и клипы</span>
-            <span data-lang="en">Videos &amp; clips</span>
-            <span data-lang="he">וידאו וקליפים</span>
-            <span data-lang="uk">Відео та кліпи</span>
-          </h3>
-          <p>
-            <span data-lang="ru" class="active">Канал MSL Spectrum: клипы к музыке и видеогенерации к стихам (Shorts).</span>
-            <span data-lang="en">MSL Spectrum channel: music clips and generative videos for poetry (Shorts).</span>
-            <span data-lang="he">ערוץ MSL Spectrum: קליפים למוזיקה ווידאו גנרטיבי לשירה (Shorts).</span>
-            <span data-lang="uk">Канал MSL Spectrum: кліпи до музики та відеогенерації до віршів (Shorts).</span>
-          </p>
-          <a href="https://www.youtube.com/@slvm3/videos" target="_blank" rel="noopener noreferrer" class="extra-link">Videos →</a>
-          <a href="https://www.youtube.com/@slvm3/shorts" target="_blank" rel="noopener noreferrer" class="extra-link">Shorts →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="contact-section" id="contact">
-    <h2>
-      <span data-lang="ru" class="active">Контакты</span>
-      <span data-lang="en">Contact</span>
-      <span data-lang="he">יצירת קשר</span>
-      <span data-lang="uk">Контакти</span>
-    </h2>
-    <p>
-      <span data-lang="ru" class="active">Готов обсудить вакансии и задачи в сфере ИИ-инструментов, поддержки и тестирования цифровых продуктов.</span>
-      <span data-lang="en">Happy to discuss roles involving AI tools, support and digital product testing.</span>
-      <span data-lang="he">מוכן לדון במשרות שקשורות לכלי AI, תמיכה ובדיקת מוצרים דיגיטליים.</span>
-      <span data-lang="uk">Готовий обговорити вакансії та завдання у сфері інструментів ШІ, підтримки та тестування цифрових продуктів.</span>
-    </p>
-    <div class="contact-links">
-      <div class="contact-item">
-        <strong>Email</strong>
-        <a href="mailto:slvm972@gmail.com">slvm972@gmail.com</a>
-      </div>
-      <div class="contact-item">
-        <strong>
-          <span data-lang="ru" class="active">Телефон</span>
-          <span data-lang="en">Phone</span>
-          <span data-lang="he">נייד</span>
-          <span data-lang="uk">Телефон</span>
-        </strong>
-        <a href="tel:+972533341679">
-          <span data-lang="ru" class="active">+972533341679</span>
-          <span data-lang="en">+972533341679</span>
-          <span data-lang="he">053-334-1679</span>
-          <span data-lang="uk">+972533341679</span>
-        </a>
-      </div>
-      <div class="contact-item">
-        <strong>LinkedIn</strong>
-        <a href="https://www.linkedin.com/in/slava-mostovoy-43748958/" target="_blank" rel="noopener noreferrer">slava-mostovoy</a>
-      </div>
-      <div class="contact-item">
-        <strong>
-          <span data-lang="ru" class="active">Город</span>
-          <span data-lang="en">Location</span>
-          <span data-lang="he">עיר</span>
-          <span data-lang="uk">Місто</span>
-        </strong>
-        <span data-lang="ru" class="active">Петах-Тиква, Израиль</span>
-        <span data-lang="en">Petah Tikva, Israel</span>
-        <span data-lang="he">פתח תקווה</span>
-        <span data-lang="uk">Петах-Тіква, Ізраїль</span>
-      </div>
-      <div class="contact-item">
-        <strong>GitHub</strong>
-        <a href="https://github.com/slvm972" target="_blank" rel="noopener noreferrer">github.com/slvm972</a>
-      </div>
+    <div class="fact">
+      <strong>
+        <span data-lang="ru" class="active">Как помогаю</span>
+        <span data-lang="en">How I help</span>
+        <span data-lang="he">איך אני עוזר</span>
+        <span data-lang="uk">Як допомагаю</span>
+      </strong>
+      <p>
+        <span data-lang="ru" class="active">Приезжаю или разбираюсь на месте: настройка, понятные объяснения, чтобы вы могли пользоваться сами</span>
+        <span data-lang="en">I come or help on site: setup, clear explanations, so you can use the device yourself</span>
+        <span data-lang="he">מגיע או עוזר במקום: הגדרה, הסברים ברורים, כדי שתוכלו להשתמש לבד</span>
+        <span data-lang="uk">Приїжджаю або допомагаю на місці: налаштування, зрозумілі пояснення, щоб ви могли користуватися самі</span>
+      </p>
     </div>
   </div>
 
-  <footer>
-    <div class="footer-top">
-      <div>© 2026 Slava Mostovoy</div>
-      <div class="footer-links">
-        <a href="#projects">
-          <span data-lang="ru" class="active">Проекты</span>
-          <span data-lang="en">Projects</span>
-          <span data-lang="he">פרויקטים</span>
-          <span data-lang="uk">Проєкти</span>
-        </a>
-          <a href="#contact">
-          <span data-lang="ru" class="active">Контакты</span>
-          <span data-lang="en">Contact</span>
-          <span data-lang="he">יצירת קשר</span>
-          <span data-lang="uk">Контакти</span>
-        </a>
+  <main class="shell">
+
+    <section class="block">
+      <h2>
+        <span data-lang="ru" class="active">С чем могу помочь</span>
+        <span data-lang="en">What I can help with</span>
+        <span data-lang="he">במה אוכל לעזור</span>
+        <span data-lang="uk">З чим можу допомогти</span>
+      </h2>
+      <p>
+        <span data-lang="ru" class="active">С тем, что мешает пользоваться техникой каждый день: настроить телефон или планшет, вернуть привычные функции, разобраться с программой, ТВ-приставкой или часами. Не обещаю сложный ремонт «железа» — помогаю с настройкой и понятным использованием.</span>
+        <span data-lang="en">With what gets in the way of everyday use: set up a phone or tablet, restore familiar functions, sort out an app, a TV box or a watch. I don’t promise complex hardware repair — I help with setup and clear, everyday use.</span>
+        <span data-lang="he">עם מה שמפריע לשימוש יומיומי: להגדיר טלפון או טאבלט, להחזיר פונקציות מוכרות, להבין אפליקציה, ממיר או שעון. איני מבטיח תיקון חומרה מורכב — אני עוזר בהגדרה ובשימוש פשוט וברור.</span>
+        <span data-lang="uk">З тим, що заважає користуватися технікою щодня: налаштувати телефон чи планшет, повернути звичні функції, розібратися з програмою, ТВ-приставкою чи годинником. Не обіцяю складний ремонт «заліза» — допомагаю з налаштуванням і зрозумілим користуванням.</span>
+      </p>
+      <div class="chips" aria-label="Devices">
+        <span>
+          <span data-lang="ru" class="active">Смартфоны</span>
+          <span data-lang="en">Smartphones</span>
+          <span data-lang="he">סמארטפונים</span>
+          <span data-lang="uk">Смартфони</span>
+        </span>
+        <span>
+          <span data-lang="ru" class="active">Планшеты</span>
+          <span data-lang="en">Tablets</span>
+          <span data-lang="he">טאבלטים</span>
+          <span data-lang="uk">Планшети</span>
+        </span>
+        <span>
+          <span data-lang="ru" class="active">Компьютеры</span>
+          <span data-lang="en">Computers</span>
+          <span data-lang="he">מחשבים</span>
+          <span data-lang="uk">Комп’ютери</span>
+        </span>
+        <span>
+          <span data-lang="ru" class="active">ТВ-приставки</span>
+          <span data-lang="en">TV set-top boxes</span>
+          <span data-lang="he">ממירים</span>
+          <span data-lang="uk">ТВ-приставки</span>
+        </span>
+        <span>
+          <span data-lang="ru" class="active">Смарт-часы</span>
+          <span data-lang="en">Smartwatches</span>
+          <span data-lang="he">שעונים חכמים</span>
+          <span data-lang="uk">Смарт-годинники</span>
+        </span>
+        <span>
+          <span data-lang="ru" class="active">и другое</span>
+          <span data-lang="en">and more</span>
+          <span data-lang="he">ועוד</span>
+          <span data-lang="uk">та інше</span>
+        </span>
       </div>
-    </div>
-    <div class="footer-lang">
-      <div class="lang-switch" role="group" aria-label="Language switcher">
-        <button class="lang-btn" data-set-lang="ru" type="button" aria-pressed="false">RU</button>
-        <button class="lang-btn" data-set-lang="en" type="button" aria-pressed="false">EN</button>
-        <button class="lang-btn" data-set-lang="he" type="button" aria-pressed="false">HE</button>
-        <button class="lang-btn" data-set-lang="uk" type="button" aria-pressed="false">UK</button>
+      <p>
+        <span data-lang="ru" class="active">Главное — чтобы после встречи вы сами могли повторить нужные шаги. Не «сделал и ушёл», а «показал и убедился, что понятно».</span>
+        <span data-lang="en">What matters is that after we meet, you can repeat the steps yourself. Not “I fixed it and left”, but “I showed you and made sure it was clear”.</span>
+        <span data-lang="he">העיקר שאחרי המפגש תוכלו לחזור על הצעדים לבד. לא «תיקנתי והלכתי», אלא «הראיתי ווידאתי שהבנתם».</span>
+        <span data-lang="uk">Головне — щоб після зустрічі ви самі могли повторити потрібні кроки. Не «зробив і пішов», а «показав і переконався, що зрозуміло».</span>
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>
+        <span data-lang="ru" class="active">Как это проходит</span>
+        <span data-lang="en">How it works</span>
+        <span data-lang="he">איך זה עובד</span>
+        <span data-lang="uk">Як це відбувається</span>
+      </h2>
+      <ol class="spine">
+        <li>
+          <div class="step-label">
+            <span data-lang="ru" class="active">Шаг 01</span>
+            <span data-lang="en">Step 01</span>
+            <span data-lang="he">שלב 01</span>
+            <span data-lang="uk">Крок 01</span>
+          </div>
+          <strong>
+            <span data-lang="ru" class="active">Сначала выслушаю</span>
+            <span data-lang="en">First I listen</span>
+            <span data-lang="he">קודם אני מקשיב</span>
+            <span data-lang="uk">Спочатку вислухаю</span>
+          </strong>
+          <p>
+            <span data-lang="ru" class="active">Расскажите, что случилось и что хотите уметь делать. Без упрёков и без «это же просто» — спокойно разберёмся, в чём дело.</span>
+            <span data-lang="en">Tell me what happened and what you want to be able to do. No blame and no “it’s so simple” — we’ll calmly figure out what’s going on.</span>
+            <span data-lang="he">ספרו מה קרה ומה תרצו לדעת לעשות. בלי האשמות ובלי «זה הרי פשוט» — נברר יחד ברוגע מה קורה.</span>
+            <span data-lang="uk">Розкажіть, що сталося і що хочете вміти робити. Без докорів і без «це ж просто» — спокійно розберемося, у чому річ.</span>
+          </p>
+        </li>
+        <li>
+          <div class="step-label">
+            <span data-lang="ru" class="active">Шаг 02</span>
+            <span data-lang="en">Step 02</span>
+            <span data-lang="he">שלב 02</span>
+            <span data-lang="uk">Крок 02</span>
+          </div>
+          <strong>
+            <span data-lang="ru" class="active">Объясняю простыми словами</span>
+            <span data-lang="en">I explain in plain words</span>
+            <span data-lang="he">מסביר במילים פשוטות</span>
+            <span data-lang="uk">Пояснюю простими словами</span>
+          </strong>
+          <p>
+            <span data-lang="ru" class="active">Без технических словечек. Говорю так, чтобы было понятно с первого раза: куда нажать, что подождать, что запомнить.</span>
+            <span data-lang="en">No technical jargon. I speak so it’s clear the first time: what to tap, what to wait for, what to remember.</span>
+            <span data-lang="he">בלי מילים טכניות. מדבר כדי שיהיה ברור כבר בפעם הראשונה: על מה ללחוץ, מה לחכות, מה לזכור.</span>
+            <span data-lang="uk">Без технічних слівець. Кажу так, щоб було зрозуміло з першого разу: куди натиснути, що зачекати, що запам’ятати.</span>
+          </p>
+        </li>
+        <li>
+          <div class="step-label">
+            <span data-lang="ru" class="active">Шаг 03</span>
+            <span data-lang="en">Step 03</span>
+            <span data-lang="he">שלב 03</span>
+            <span data-lang="uk">Крок 03</span>
+          </div>
+          <strong>
+            <span data-lang="ru" class="active">Чтобы вы могли сами</span>
+            <span data-lang="en">So you can do it yourself</span>
+            <span data-lang="he">כדי שתוכלו לבד</span>
+            <span data-lang="uk">Щоб ви могли самі</span>
+          </strong>
+          <p>
+            <span data-lang="ru" class="active">Покажу шаги и попрошу повторить. Цель — чтобы в следующий раз вы справились без посторонней помощи и чувствовали себя увереннее.</span>
+            <span data-lang="en">I’ll show the steps and ask you to repeat them. The goal is that next time you can manage on your own and feel more confident.</span>
+            <span data-lang="he">אראה את הצעדים ואבקש שתחזרו עליהם. המטרה שבפעם הבאה תסתדרו לבד ותרגישו בטוחים יותר.</span>
+            <span data-lang="uk">Покажу кроки і попрошу повторити. Мета — щоб наступного разу ви впоралися без сторонньої допомоги і почувалися впевненіше.</span>
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="block">
+      <h2>
+        <span data-lang="ru" class="active">Почему ко мне обращаются</span>
+        <span data-lang="en">Why people contact me</span>
+        <span data-lang="he">למה פונים אליי</span>
+        <span data-lang="uk">Чому звертаються до мене</span>
+      </h2>
+      <ul class="skills">
+        <li>
+          <span data-lang="ru" class="active">Говорю спокойно и по-русски — без спешки и без «ну это же элементарно»</span>
+          <span data-lang="en">I speak calmly — in Russian when needed — without rushing and without “it’s so basic”</span>
+          <span data-lang="he">מדבר ברוגע — גם ברוסית כשצריך — בלי לחץ ובלי «זה הרי בסיסי»</span>
+          <span data-lang="uk">Говорю спокійно і російською — без поспіху і без «ну це ж елементарно»</span>
+        </li>
+        <li>
+          <span data-lang="ru" class="active">Объясняю так, чтобы было понятно с первого раза — короткими шагами</span>
+          <span data-lang="en">I explain so it’s clear the first time — in short steps</span>
+          <span data-lang="he">מסביר כדי שיהיה ברור כבר בפעם הראשונה — בצעדים קצרים</span>
+          <span data-lang="uk">Пояснюю так, щоб було зрозуміло з першого разу — короткими кроками</span>
+        </li>
+        <li>
+          <span data-lang="ru" class="active">Не делаю всё «за вас молча» — учу, чтобы в следующий раз вы справились сами</span>
+          <span data-lang="en">I don’t just fix everything silently for you — I teach so next time you can manage alone</span>
+          <span data-lang="he">לא עושה הכול «בשבילכם בשקט» — מלמד כדי שבפעם הבאה תסתדרו לבד</span>
+          <span data-lang="uk">Не роблю все «за вас мовчки» — вчу, щоб наступного разу ви впоралися самі</span>
+        </li>
+        <li>
+          <span data-lang="ru" class="active">Есть опыт помощи пожилым в жилых комплексах Петах-Тиквы — знаю типичные трудности</span>
+          <span data-lang="en">I have experience helping older adults in Petah Tikva housing complexes — I know the common difficulties</span>
+          <span data-lang="he">יש לי ניסיון בסיוע לקשישים במקבצי דיור בפתח תקווה — אני מכיר את הקשיים הטיפוסיים</span>
+          <span data-lang="uk">Є досвід допомоги літнім у житлових комплексах Петах-Тікви — знаю типові труднощі</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2>
+        <span data-lang="ru" class="active">Напишите или позвоните</span>
+        <span data-lang="en">Message or call</span>
+        <span data-lang="he">כתבו או התקשרו</span>
+        <span data-lang="uk">Напишіть або зателефонуйте</span>
+      </h2>
+      <p>
+        <span data-lang="ru" class="active">Если техника мешает, а разбираться в одиночку тяжело — свяжитесь со мной. Коротко опишите, что случилось: с каким устройством проблема и что хотите сделать. Отвечу и подскажем, как удобнее помочь.</span>
+        <span data-lang="en">If technology is getting in the way and it’s hard to figure out alone — contact me. Briefly say what happened: which device and what you want to do. I’ll reply and suggest the easiest way to help.</span>
+        <span data-lang="he">אם הטכנולוגיה מפריעה וקשה להסתדר לבד — צרו קשר. כתבו בקצרה מה קרה: באיזה מכשיר הבעיה ומה תרצו לעשות. אחזור אליכם ואציע איך הכי נוח לעזור.</span>
+        <span data-lang="uk">Якщо техніка заважає, а розбиратися наодинці важко — зв’яжіться зі мною. Коротко опишіть, що сталося: з яким пристроєм проблема і що хочете зробити. Відповім і підкажу, як зручніше допомогти.</span>
+      </p>
+      <p class="closing-text" style="margin-top: 1.25rem;">
+        <span data-lang="ru" class="active">Помощь рядом — достаточно одного сообщения или звонка.</span>
+        <span data-lang="en">Help is close by — one message or call is enough.</span>
+        <span data-lang="he">העזרה קרובה — מספיק הודעה אחת או שיחה.</span>
+        <span data-lang="uk">Допомога поруч — достатньо одного повідомлення або дзвінка.</span>
+      </p>
+
+      <div class="contact">
+        <p>
+          <span data-lang="ru" class="active">Напишите в WhatsApp или позвоните — разберём вашу ситуацию.</span>
+          <span data-lang="en">Message on WhatsApp or call — we’ll look at your situation.</span>
+          <span data-lang="he">כתבו בוואטסאפ או התקשרו — נבדוק את המצב שלכם.</span>
+          <span data-lang="uk">Напишіть у WhatsApp або зателефонуйте — розберемо вашу ситуацію.</span>
+        </p>
+        <div class="actions">
+          <a class="btn-wa" href="https://wa.me/972533341679" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+          <a class="btn-phone" href="tel:+972533341679">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span data-lang="ru" class="active">Позвонить</span>
+            <span data-lang="en">Call</span>
+            <span data-lang="he">התקשרו</span>
+            <span data-lang="uk">Подзвонити</span>
+          </a>
+        </div>
       </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <a href="https://slvm972.github.io/Portfolio/">
+      <span data-lang="ru" class="active">← Портфолио · Slava Mostovoy</span>
+      <span data-lang="en">← Portfolio · Slava Mostovoy</span>
+      <span data-lang="he">← תיק עבודות · Slava Mostovoy</span>
+      <span data-lang="uk">← Портфоліо · Slava Mostovoy</span>
+    </a>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button class="lang-btn" data-set-lang="ru" type="button" aria-pressed="false">RU</button>
+      <button class="lang-btn" data-set-lang="en" type="button" aria-pressed="false">EN</button>
+      <button class="lang-btn" data-set-lang="he" type="button" aria-pressed="false">HE</button>
+      <button class="lang-btn" data-set-lang="uk" type="button" aria-pressed="false">UK</button>
     </div>
   </footer>
 
   <script>
     (function () {
-      const buttons = document.querySelectorAll('[data-set-lang]');
-      const elements = document.querySelectorAll('[data-lang]');
-      const supported = ['ru', 'en', 'he', 'uk'];
+      var buttons = document.querySelectorAll("[data-set-lang]");
+      var elements = document.querySelectorAll("[data-lang]");
+      var supported = ["ru", "en", "he", "uk"];
 
       function setLang(lang) {
-        if (!supported.includes(lang)) lang = 'en';
-        buttons.forEach(btn => {
-          const on = btn.getAttribute('data-set-lang') === lang;
-          btn.classList.toggle('active', on);
-          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        if (supported.indexOf(lang) === -1) lang = "en";
+        buttons.forEach(function (btn) {
+          var on = btn.getAttribute("data-set-lang") === lang;
+          btn.classList.toggle("active", on);
+          btn.setAttribute("aria-pressed", on ? "true" : "false");
         });
-        elements.forEach(el => {
-          el.classList.toggle('active', el.getAttribute('data-lang') === lang);
+        elements.forEach(function (el) {
+          el.classList.toggle("active", el.getAttribute("data-lang") === lang);
         });
         document.documentElement.lang = lang;
-        document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
-        try { localStorage.setItem('portfolio-lang', lang); } catch (e) {}
+        document.documentElement.dir = lang === "he" ? "rtl" : "ltr";
+        try { localStorage.setItem("portfolio-lang", lang); } catch (e) {}
+      }
+
+      function systemLang() {
+        var list = (navigator.languages && navigator.languages.length)
+          ? navigator.languages
+          : [navigator.language || navigator.userLanguage || "en"];
+        for (var i = 0; i < list.length; i++) {
+          var code = String(list[i]).toLowerCase().split("-")[0];
+          if (code === "he" || code === "iw") return "he";
+          if (code === "uk") return "uk";
+          if (code === "ru") return "ru";
+          if (code === "en") return "en";
+        }
+        return "en";
       }
 
       function detectLang() {
         try {
-          const saved = localStorage.getItem('portfolio-lang');
-          if (saved && supported.includes(saved)) return saved;
+          var saved = localStorage.getItem("portfolio-lang");
+          if (saved && supported.indexOf(saved) !== -1) return saved;
         } catch (e) {}
-
-        const list = navigator.languages && navigator.languages.length
-          ? navigator.languages
-          : [navigator.language || navigator.userLanguage || 'en'];
-
-        for (let i = 0; i < list.length; i++) {
-          const code = String(list[i]).toLowerCase().split('-')[0];
-          if (code === 'he' || code === 'iw') return 'he';
-          if (code === 'uk') return 'uk';
-          if (code === 'ru') return 'ru';
-          if (code === 'en') return 'en';
-        }
-        return 'en';
+        return systemLang();
       }
 
-      buttons.forEach(btn => {
-        btn.addEventListener('click', () => setLang(btn.getAttribute('data-set-lang')));
+      buttons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          setLang(btn.getAttribute("data-set-lang"));
+        });
       });
-
       setLang(detectLang());
     })();
   </script>
+
 
 </body>
 </html>
